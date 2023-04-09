@@ -1,0 +1,65 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <a href="" class="navbar-brand">College Management System</a>
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a href="addstudent/{{ class.id }}" class="nav-link">Add Student</a>
+          </li>
+          <li class="nav-item">
+            <a href="addfaculty" class="nav-link">Add Faculty</a>
+          </li>
+          {% if user.is_authenticated %}
+          <a href="" class="nav-link active">{{ user.username }}</a>
+          {% endif %}
+        </ul>
+      </nav>
+      <div class="row">
+      <h1 class="indexHeads col">Class Student Details ({{ count }})</h1>
+      <button class="backbtn col-2"><a href="/index" class="backlink">Go Back</a></button>
+    </div>
+      <table class="table table-hover">
+        <thead class="theadbg">
+          <tr>
+            <th>Sl. No</th>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>ID No.</th>
+            <th>CGPA</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody class="tbodybg">
+          {% for student in students %} 
+          {% if student.classname.classname == class.classname %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ student.stud_name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.idnum }}</td>
+            <td>{{ student.cgpa }}</td>
+            <td><a href="update/{{ student.id }}" class="update">Update</a></td>
+            <td><a href="delete/{{ student.id }}" class="delete">Delete</a></td>
+          </tr>
+          {% endif %} 
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
